@@ -39,14 +39,21 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 $(BUILD_DIR)/expr/%.o: $(SRC_DIR)/expr/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Test target
+# Soubory se zdrojáky testů
+TEST_SRCS := $(wildcard tests/*.cpp)
+TEST_OBJS := $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(notdir $(TEST_SRCS)))
+
+# Cíl pro spouštění testů
 test: $(TEST_BIN)
 	./$(TEST_BIN)
 
-$(TEST_BIN): $(filter-out $(BUILD_DIR)/main.o,$(OBJ_FILES)) $(TEST_OBJ)
+# Link testovací binárky bez main.o ze src
+$(TEST_BIN): $(filter-out $(BUILD_DIR)/main.o,$(OBJ_FILES)) $(TEST_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(PARSER_LIB)
 
-$(TEST_OBJ): $(TEST_SRC)
+# Kompilace testovacích souborů do build/
+$(BUILD_DIR)/%.o: tests/%.cpp
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean build

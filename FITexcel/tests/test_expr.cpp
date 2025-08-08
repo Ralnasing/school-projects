@@ -20,10 +20,11 @@
 #include <unordered_map>
 #include <memory>
 
-std::unordered_map<CPos, CBuilder, CPosHash> dummyMap;
-std::unordered_map<CPos, bool, CPosHash> dummyCyc;
-
 TEST_CASE("Arithmetic operators") {
+
+    std::unordered_map<CPos, CBuilder, CPosHash> dummyMap;
+    std::unordered_map<CPos, bool, CPosHash> dummyCyc;
+
     SUBCASE("CAdd") {
         // Numbers
         CHECK(CAdd(std::make_shared<CValNum>(2), std::make_shared<CValNum>(3)).getValue(dummyMap, dummyCyc, 0, 0) == CValue(5.0));
@@ -71,6 +72,10 @@ TEST_CASE("Arithmetic operators") {
 }
 
 TEST_CASE("Relational operators") {
+
+    std::unordered_map<CPos, CBuilder, CPosHash> dummyMap;
+    std::unordered_map<CPos, bool, CPosHash> dummyCyc;
+    
     SUBCASE("CEq") {
         CHECK(CEq(std::make_shared<CValNum>(2), std::make_shared<CValNum>(2)).getValue(dummyMap, dummyCyc, 0, 0) == CValue(1.0));
         CHECK(CEq(std::make_shared<CValNum>(2), std::make_shared<CValNum>(3)).getValue(dummyMap, dummyCyc, 0, 0) == CValue(0.0));
