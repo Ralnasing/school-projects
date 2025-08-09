@@ -10,7 +10,7 @@ The projects cover a variety of topics including programming, operating systems,
   A simulated GitHub Web App penetration test report. Includes security analysis, vulnerability identification, and basic mitigation suggestions.
 
 - **FITexcel/**  
-  A simple spreadsheet backend implemented in C++ as part of a school project. Supports parsing, cell referencing, and formula evaluation. Designed for command-line interaction.
+  A simple spreadsheet backend implemented in C++ as part of a school project. Supports parsing, cell referencing, and formula evaluation.
 
 - **network-monitor/**  
   A Python-based tool (work in progress) for monitoring network traffic, scanning hosts, and collecting basic statistics. Planned to include visualization and alerting features.
