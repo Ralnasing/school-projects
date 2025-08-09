@@ -7,6 +7,9 @@
 #include "CPos.h"
 #include "CBuilder.h"
 
+// Forward declaration
+class CBuilder;
+
 /**
  * @class CExpr
  * @brief Abstract base class for all expression operator classes.

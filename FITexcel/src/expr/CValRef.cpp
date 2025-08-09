@@ -1,6 +1,8 @@
-#include "core/expr/CValRef.h"
-#include "core/CPos.h"
-#include "core/CBuilder.h"
+#include "expr/CValRef.h"
+#include "CPos.h"
+#include "CBuilder.h"
+
+#include <iostream>
 
 // ======================== ======================== ======================== ========================
 // Constructors
@@ -22,9 +24,6 @@ CValue CValRef::getValue(const std::unordered_map<CPos, CBuilder, CPosHash>& map
 {
     CPos pos = CPos(m_Cell) + std::make_pair(m_AbsCol ? 0 : colMove,
                                              m_AbsRow ? 0 : rowMove);
-
-    if (pos.colIndex() < 0 || pos.rowIndex() < 0)
-        return CValue();
 
     auto cell = map.find(pos);
     if (cell != map.end())

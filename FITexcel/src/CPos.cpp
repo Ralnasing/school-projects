@@ -1,4 +1,4 @@
-#include "core/CPos.h"
+#include "CPos.h"
 #include <sstream>
 #include <stdexcept>
 #include <algorithm>

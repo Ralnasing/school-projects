@@ -7,9 +7,12 @@
 #include <unordered_map>
 
 #include "CExprBuilder.h"
-#include "CExpr.h"
+#include "expr/CExpr.h"
 #include "CPos.h"
 #include "CValue.h"
+
+// Forward declaration
+class CExpr;
 
 /**
  * @class CBuilder

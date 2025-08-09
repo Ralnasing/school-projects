@@ -1,4 +1,4 @@
-#include "core/expr/CNe.h"
+#include "expr/CNe.h"
 #include <variant>
 #include <string>
 

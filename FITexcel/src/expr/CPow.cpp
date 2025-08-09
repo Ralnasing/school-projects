@@ -1,4 +1,4 @@
-#include "core/expr/CPow.h"
+#include "expr/CPow.h"
 #include <cmath>
 #include <variant>
 

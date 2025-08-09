@@ -1,4 +1,4 @@
-#include "core/expr/CValStr.h"
+#include "expr/CValStr.h"
 
 // ======================== ======================== ======================== ========================
 // Constructors
@@ -13,10 +13,10 @@ CValStr::CValStr(const std::string& val)
 // Getters
 // ========================
 
-CValue CValStr::getValue(const std::unordered_map<CPos, CBuilder, CPosHash>& map,
-                               std::unordered_map<CPos, bool, CPosHash>&     cyc,
-                         int                                                 colMove,
-                         int                                                 rowMove) const
+CValue CValStr::getValue(const std::unordered_map<CPos, CBuilder, CPosHash>& /*map*/,
+                               std::unordered_map<CPos, bool, CPosHash>&     /*cyc*/,
+                         int                                                 /*colMove*/,
+                         int                                                 /*rowMove*/ ) const
 {
     return CValue(m_Val);
 }

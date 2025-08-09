@@ -1,19 +1,19 @@
-#include "core/CBuilder.h"
-#include "core/expr/CAdd.h"
-#include "core/expr/CSub.h"
-#include "core/expr/CMul.h"
-#include "core/expr/CDiv.h"
-#include "core/expr/CPow.h"
-#include "core/expr/CNeg.h"
-#include "core/expr/CEq.h"
-#include "core/expr/CNe.h"
-#include "core/expr/CLt.h"
-#include "core/expr/CLe.h"
-#include "core/expr/CGt.h"
-#include "core/expr/CGe.h"
-#include "core/expr/CValNum.h"
-#include "core/expr/CValStr.h"
-#include "core/expr/CValRef.h"
+#include "CBuilder.h"
+#include "expr/CAdd.h"
+#include "expr/CSub.h"
+#include "expr/CMul.h"
+#include "expr/CDiv.h"
+#include "expr/CPow.h"
+#include "expr/CNeg.h"
+#include "expr/CEq.h"
+#include "expr/CNe.h"
+#include "expr/CLt.h"
+#include "expr/CLe.h"
+#include "expr/CGt.h"
+#include "expr/CGe.h"
+#include "expr/CValNum.h"
+#include "expr/CValStr.h"
+#include "expr/CValRef.h"
 #include <utility>
 
 // ======================== ======================== ======================== ========================
@@ -162,12 +162,12 @@ void CBuilder::valReference(std::string val)
     m_ValueStack.push(CValRef(val, isAbsCol, isAbsRow).clone());
 }
 
-void CBuilder::valRange(std::string val)
+void CBuilder::valRange(std::string /*val*/)
 {
     /* TODO */
 }
 
-void CBuilder::funcCall(std::string fnName, int paramCount)
+void CBuilder::funcCall(std::string /*fnName*/, int /*paramCount*/)
 {
     /* TODO */
 }

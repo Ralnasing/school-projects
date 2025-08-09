@@ -41,14 +41,14 @@ class CSpreadsheet
     CSpreadsheet& operator=(const CSpreadsheet& src);
 
     /**
-     * Loads the spreadsheet from an input stream
+     * Loads the spreadsheet (csv) from an input stream
      * @param[in] is Input stream
      * @return true if loaded successfully, false otherwise
      */
     bool load(std::istream& is);
 
     /**
-     * Saves the spreadsheet to an output stream
+     * Saves the spreadsheet to an output stream as csv
      * @param[in] os Output stream
      * @return true if saved successfully, false otherwise
      */

@@ -1,12 +1,13 @@
-#include "core/CSpreadsheet.h"
-#include "core/CBuilder.h"
-#include "core/CPos.h"
+#include "CSpreadsheet.h"
+#include "CBuilder.h"
+#include "CPos.h"
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <utility>
 #include <sstream>
 #include <functional>
+#include <algorithm>
 
 // ======================== ======================== ======================== ========================
 // Constructors
@@ -33,66 +34,89 @@ CSpreadsheet& CSpreadsheet::operator=(const CSpreadsheet& src)
 bool CSpreadsheet::load(std::istream& is)
 {
     CSpreadsheet tmpSheet;
-    std::string input, check;
-    std::vector<std::string> tokens;
-
-    while (std::getline(is, input, '%'))
-    {
-        tokens.push_back(input);
-
-        if (tokens.size() == 4)
-        {
-            const std::string& posStr   = tokens[0];
-            const std::string& contents = tokens[1];
-            int colMove, rowMove;
-
-            try
-            {
-                colMove = std::stoi(tokens[2]);
-                rowMove = std::stoi(tokens[3]);
+    std::string line;
+    
+    while (std::getline(is, line)) {
+        if (line.empty()) continue;
+        
+        std::vector<std::string> parts;
+        std::string current;
+        
+        for (size_t i = 0; i < line.length(); i++) {
+            if (line[i] == '\\' && i + 1 < line.length()) {
+                if (line[i + 1] == '|') {
+                    current += '|';
+                    i++;
+                } else if (line[i + 1] == '\\') {
+                    current += '\\';
+                    i++;
+                } else if (line[i + 1] == 'n') {
+                    current += '\n';
+                    i++;
+                } else {
+                    current += line[i];
+                }
+            } else if (line[i] == '|') {
+                parts.push_back(current);
+                current.clear();
+            } else {
+                current += line[i];
             }
-            catch (...) { return false; }
-
-            check += posStr + contents + tokens[2] + tokens[3];
-
-            try
-            {
-                CPos pos(posStr);
-                if (!tmpSheet.setCell(pos, contents)) return false;
-
-                auto cell = tmpSheet.m_Sheet.find(pos);
-                if (cell == tmpSheet.m_Sheet.end()) return false;
-
-                cell->second.setMove(colMove, rowMove);
-            }
-            catch (...) { return false; }
-
-            tokens.clear();
+        }
+        parts.push_back(current);
+        
+        if (parts.size() != 4) return false;
+        
+        try {
+            CPos pos(parts[0]);
+            int colMove = std::stoi(parts[2]);
+            int rowMove = std::stoi(parts[3]);
+            
+            if (!tmpSheet.setCell(pos, parts[1])) return false;
+            
+            auto cell = tmpSheet.m_Sheet.find(pos);
+            if (cell == tmpSheet.m_Sheet.end()) return false;
+            cell->second.setMove(colMove, rowMove);
+            
+        } catch (...) {
+            return false;
         }
     }
-
-    if (tokens.size() != 1) return false;
-    if (tokens[0] != std::to_string(std::hash<std::string>{}(check))) return false;
-
+    
     *this = tmpSheet;
     return true;
 }
 
 bool CSpreadsheet::save(std::ostream& os) const
 {
-    std::string check;
-
-    for (const auto& [pos, builder] : m_Sheet)
-    {
-        if (!(os << pos.cellName() << "%" << builder.m_Content << "%"
-                 << builder.m_ColMove << "%" << builder.m_RowMove << "%"))
-            return false;
-
-        check += pos.cellName() + builder.m_Content +
-                 std::to_string(builder.m_ColMove) + std::to_string(builder.m_RowMove);
+    for (const auto& [pos, builder] : m_Sheet) {
+        std::string escapedContent = builder.m_Content;
+        
+        size_t pos_char = 0;
+        while ((pos_char = escapedContent.find('|', pos_char)) != std::string::npos) {
+            escapedContent.replace(pos_char, 1, "\\|");
+            pos_char += 2;
+        }
+        pos_char = 0;
+        while ((pos_char = escapedContent.find('\\', pos_char)) != std::string::npos) {
+            if (pos_char + 1 >= escapedContent.length() || escapedContent[pos_char + 1] != '|') {
+                escapedContent.replace(pos_char, 1, "\\\\");
+                pos_char += 2;
+            } else {
+                pos_char += 2;
+            }
+        }
+        pos_char = 0;
+        while ((pos_char = escapedContent.find('\n', pos_char)) != std::string::npos) {
+            escapedContent.replace(pos_char, 1, "\\n");
+            pos_char += 2;
+        }
+        
+        os << pos.cellName() << "|" << escapedContent << "|" 
+           << builder.m_ColMove << "|" << builder.m_RowMove << "\n";
+        
+        if (!os.good()) return false;
     }
-
-    if (!(os << std::hash<std::string>{}(check))) return false;
     return true;
 }
 
@@ -157,7 +181,7 @@ void CSpreadsheet::copyRect(CPos dst, CPos src, int w, int h)
             {
                 auto cellDst = m_Sheet.find(posDst);
                 if (cellDst != m_Sheet.end())
-                    setCell(posDst, "=\"undef\"");
+                    m_Sheet.erase(posDst);
             }
         }
     }
