@@ -34,8 +34,8 @@ A simple spreadsheet implementation in C++ as a school project.
 │   └── doctest.h
 ├── parser/            # Expression parser library
 │   └── libexpression_parser.a
-├── build/             # Compiled object files
-├── bin/               # Executable files
+├── build/             # Compiled object files (Created with "make")
+├── bin/               # Executable files (Created with "make")
 └── Makefile
 ```
 
