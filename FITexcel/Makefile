@@ -39,19 +39,19 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 $(BUILD_DIR)/expr/%.o: $(SRC_DIR)/expr/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Soubory se zdrojáky testů
+# Test source files
 TEST_SRCS := $(wildcard tests/*.cpp)
 TEST_OBJS := $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(notdir $(TEST_SRCS)))
 
-# Cíl pro spouštění testů
+# Target for running tests
 test: $(TEST_BIN)
 	./$(TEST_BIN)
 
-# Link testovací binárky bez main.o ze src
+# Link test binary without main.o from src
 $(TEST_BIN): $(filter-out $(BUILD_DIR)/main.o,$(OBJ_FILES)) $(TEST_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(PARSER_LIB)
 
-# Kompilace testovacích souborů do build/
+# Compile test files to build/
 $(BUILD_DIR)/%.o: tests/%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@

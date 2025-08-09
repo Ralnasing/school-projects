@@ -82,7 +82,7 @@ TEST_CASE("CBuilder test") {
         CHECK(l.evaluate(dummyMap, dummyCyc) == CValue(6.0));
     }
 
-    SUBCASE("Copy and assignment") {
+    SUBCASE("Copy test") {
         CBuilder b1( "" );
         b1.valNumber(7);
 
@@ -114,7 +114,7 @@ TEST_CASE("CBuilder test") {
         CHECK(b.evaluate(dummyMap, dummyCyc) == CValue("Hello there1000.000000"));
     }
 
-    SUBCASE("valReference absolute/relative") {
+    SUBCASE("valReference test") {
         CBuilder refA( "" );
         refA.valNumber(42);
 
