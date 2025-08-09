@@ -1,0 +1,13 @@
+# Build directories
+bin/
+build/
+*.o
+
+# Compiled libraries
+*.a
+
+# IDE and editor files
+.vscode/
+
+# Parser build artifacts (if parser is built separately)
+parser/
