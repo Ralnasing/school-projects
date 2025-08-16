@@ -1,0 +1,38 @@
+QWidget {
+    background-color: #f8f8f8;
+    color: #000;
+    font-family: Segoe UI;
+}
+
+QPushButton {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+}
+
+QPushButton:hover {
+    background-color: #e6e6e6;
+}
+
+#HeaderWidget {
+    background-color: #eeeeee;
+    border-bottom: 1px solid #cccccc;
+}
+
+PacketWidget {
+                background-color: #f9f9f9;
+                border: 1px solid #ddd;
+                border-radius: 2px;
+}
+
+PacketWidget:hover {
+    background-color: #e6f3ff;
+}
+
+QLabel {
+    padding: 2px;
+    border: none;
+}
