@@ -8,7 +8,6 @@ A simple spreadsheet implementation in C++ as a school project.
 - **Formula Evaluation**: Support for arithmetic operations (+, -, *, /, ^) and comparison operators (=, <>, <, <=, >, >=)
 - **Cell References**: Both absolute (`$A$1`) and relative (`A1`) cell references
 - **Range Support**: Handle cell ranges for advanced operations
-- **Function Calls**: Extensible function system for built-in spreadsheet functions
 - **CSV Save/Load**: Load and save spreadsheets in CSV format
 - **Copy Operations**: Copy rectangular areas of cells with automatic reference adjustment
 - **Cycle Detection**: Prevents infinite loops in circular references
