@@ -12,5 +12,5 @@ The projects cover a variety of topics including programming, operating systems,
 - **FITexcel/**  
   A simple spreadsheet backend implemented in C++ as part of a school project. Supports parsing, cell referencing, and formula evaluation.
 
-- **network-monitor/** --- WORK IN PROGRESS
+- **network-monitor/** - WORK IN PROGRESS   
   A Python-based tool for monitoring network traffic, scanning hosts, and collecting basic statistics. Planned to include visualization and alerting features.
